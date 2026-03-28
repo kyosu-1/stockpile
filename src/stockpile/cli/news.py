@@ -1,6 +1,11 @@
 import typer
+from rich.console import Console
+
+from stockpile.cli.formatters import output
+from stockpile.providers.news_provider import YFinanceNewsProvider
 
 app = typer.Typer(no_args_is_help=True)
+console = Console()
 
 
 @app.command()
@@ -11,4 +16,7 @@ def get(
     fmt: str = typer.Option("table", "--format", help="Output format: table, json, csv"),
 ) -> None:
     """Get news for a stock."""
-    typer.echo(f"[TODO] Fetching news for {symbol}")
+    provider = YFinanceNewsProvider(market=market)
+    with console.status(f"Fetching news for {symbol}..."):
+        articles = provider.get_news(symbol, limit)
+    output(articles, fmt=fmt, title=f"{symbol} News")
