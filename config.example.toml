@@ -1,0 +1,14 @@
+[storage]
+backend = "sqlite"
+# path = "~/.local/share/stockpile/data"
+
+[defaults]
+market = "us"           # "us" or "jp"
+output_format = "table" # "table", "json", "csv"
+
+[api_keys]
+jquants = ""
+fmp = ""
+finnhub = ""
+gnews = ""
+fred = ""

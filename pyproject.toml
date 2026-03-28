@@ -1,0 +1,40 @@
+[project]
+name = "stockpile"
+version = "0.1.0"
+description = "Stock investment information gathering CLI tool for US and Japanese markets"
+readme = "README.md"
+authors = [
+    { name = "kyosu-1", email = "sho013039@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "typer>=0.9",
+    "rich>=13.0",
+    "yfinance>=0.2",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+jp = [
+    "jquants-api-client>=2.0",
+]
+dev = [
+    "ruff",
+    "pytest",
+    "pytest-cov",
+    "responses",
+]
+
+[project.scripts]
+stockpile = "stockpile.cli.app:main"
+
+[build-system]
+requires = ["uv_build>=0.11.2,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
