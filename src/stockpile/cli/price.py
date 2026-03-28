@@ -40,4 +40,6 @@ def current(
         quote = provider.get_current_price(symbol)
 
     color = "green" if quote.change >= 0 else "red"
-    console.print(f"[bold]{quote.symbol}[/bold]  ${quote.price:.2f}  [{color}]{quote.change:+.2f} ({quote.change_pct:+.2f}%)[/{color}]")
+    console.print(
+        f"[bold]{quote.symbol}[/bold]  ${quote.price:.2f}  [{color}]{quote.change:+.2f} ({quote.change_pct:+.2f}%)[/{color}]"
+    )

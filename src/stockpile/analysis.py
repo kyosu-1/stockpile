@@ -108,7 +108,9 @@ def calculate_metrics(
             roa=_pct(inc.net_income, bs.total_assets) if bs else None,
             # Leverage
             equity_ratio=_pct(bs.equity, bs.total_assets) if bs else None,
-            de_ratio=round(bs.total_debt / bs.equity, 2) if bs and bs.total_debt and bs.equity and bs.equity != 0 else None,
+            de_ratio=round(bs.total_debt / bs.equity, 2)
+            if bs and bs.total_debt and bs.equity and bs.equity != 0
+            else None,
             # Growth
             revenue_growth=_growth(inc.revenue, prior_inc.revenue) if prior_inc else None,
             operating_income_growth=_growth(inc.operating_income, prior_inc.operating_income) if prior_inc else None,

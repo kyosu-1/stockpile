@@ -68,16 +68,11 @@ class SQLiteStorage:
             """INSERT OR REPLACE INTO ohlcv
                (symbol, date, open, high, low, close, volume, source, fetched_at)
                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-            [
-                (p.symbol, p.date.isoformat(), p.open, p.high, p.low, p.close, p.volume, source, now)
-                for p in prices
-            ],
+            [(p.symbol, p.date.isoformat(), p.open, p.high, p.low, p.close, p.volume, source, now) for p in prices],
         )
         self._conn.commit()
 
-    def get_prices(
-        self, symbol: str, start: date, end: date, source: str | None = None
-    ) -> list[OHLCV]:
+    def get_prices(self, symbol: str, start: date, end: date, source: str | None = None) -> list[OHLCV]:
         query = "SELECT * FROM ohlcv WHERE symbol = ? AND date >= ? AND date <= ?"
         params: list = [symbol, start.isoformat(), end.isoformat()]
         if source:
@@ -99,9 +94,7 @@ class SQLiteStorage:
             for row in rows
         ]
 
-    def save_financials(
-        self, symbol: str, statement: str, period_type: str, data: dict, source: str
-    ) -> None:
+    def save_financials(self, symbol: str, statement: str, period_type: str, data: dict, source: str) -> None:
         now = datetime.now().isoformat()
         for period_end, values in data.items():
             self._conn.execute(
@@ -112,9 +105,7 @@ class SQLiteStorage:
             )
         self._conn.commit()
 
-    def get_financials(
-        self, symbol: str, statement: str, period_type: str, source: str | None = None
-    ) -> dict | None:
+    def get_financials(self, symbol: str, statement: str, period_type: str, source: str | None = None) -> dict | None:
         query = "SELECT * FROM financials WHERE symbol = ? AND statement = ? AND period_type = ?"
         params: list = [symbol, statement, period_type]
         if source:

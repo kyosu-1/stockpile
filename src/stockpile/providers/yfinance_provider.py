@@ -35,9 +35,7 @@ class YFinanceProvider:
             timestamp=datetime.now(),
         )
 
-    def get_historical_prices(
-        self, symbol: str, start: date, end: date
-    ) -> list[OHLCV]:
+    def get_historical_prices(self, symbol: str, start: date, end: date) -> list[OHLCV]:
         ticker = yf.Ticker(self._resolve_symbol(symbol))
         df = ticker.history(start=start.isoformat(), end=end.isoformat())
         if df.empty:
@@ -58,9 +56,7 @@ class YFinanceProvider:
             )
         return results
 
-    def get_income_statement(
-        self, symbol: str, period: str = "annual"
-    ) -> list[IncomeStatement]:
+    def get_income_statement(self, symbol: str, period: str = "annual") -> list[IncomeStatement]:
         ticker = yf.Ticker(self._resolve_symbol(symbol))
         df = ticker.income_stmt if period == "annual" else ticker.quarterly_income_stmt
         if df is None or df.empty:
@@ -82,9 +78,7 @@ class YFinanceProvider:
             )
         return results
 
-    def get_balance_sheet(
-        self, symbol: str, period: str = "annual"
-    ) -> list[BalanceSheet]:
+    def get_balance_sheet(self, symbol: str, period: str = "annual") -> list[BalanceSheet]:
         ticker = yf.Ticker(self._resolve_symbol(symbol))
         df = ticker.balance_sheet if period == "annual" else ticker.quarterly_balance_sheet
         if df is None or df.empty:
@@ -106,9 +100,7 @@ class YFinanceProvider:
             )
         return results
 
-    def get_cash_flow(
-        self, symbol: str, period: str = "annual"
-    ) -> list[CashFlow]:
+    def get_cash_flow(self, symbol: str, period: str = "annual") -> list[CashFlow]:
         ticker = yf.Ticker(self._resolve_symbol(symbol))
         df = ticker.cashflow if period == "annual" else ticker.quarterly_cashflow
         if df is None or df.empty:
